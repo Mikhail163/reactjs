@@ -1,5 +1,6 @@
-import Developer from './user';
-import Manager from './user';
+import Employee from './employee';
+import Developer from './developer';
+import Manager from './manager';
 import Time from './time';
 
 
@@ -10,11 +11,11 @@ const dev2 = new Developer('Петя', 'Иванов', 32000, 'отдел раз
 const dev3 = new Developer('Михаил', 'Сидоров', 50000, 'отдел разработки', manager);
 
 
-dev1.render("developer");
+dev1.render("developer"); // задание 1 и 2
 
-manager.render("manager");
+manager.render("manager"); // задание 3 и 4
 
-const time = new Time("time");
+const time = new Time("time"); // задание 5
 
 
 console.log('Hello world');

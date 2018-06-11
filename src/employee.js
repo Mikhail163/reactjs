@@ -54,7 +54,7 @@ export default class Employee extends User {
     }
 
     getContent() {
-        return `<div class="user">${this.firstName} ${this.lastName}: зп ${this._salary} р; ${this._department};</div>`;
+        return `<div class="user">${this.firstName} ${this.lastName}: зп ${this._salary} р; отдел ${this._department};</div>`;
     }
 
 }
