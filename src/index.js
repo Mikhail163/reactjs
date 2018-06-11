@@ -1,5 +1,7 @@
 import Developer from './user';
 import Manager from './user';
+import Time from './time';
+
 
 
 const manager = new Manager('Варфаламей', 'Плибеевич', 250000, 'отдел разработки');
@@ -11,6 +13,8 @@ const dev3 = new Developer('Михаил', 'Сидоров', 50000, 'отдел 
 dev1.render("developer");
 
 manager.render("manager");
+
+const time = new Time("time");
 
 
 console.log('Hello world');

@@ -107,7 +107,7 @@ export default class Developer extends Employee {
 class Manager extends Employee {
 
     constructor(firstName, lastName, salary = 0, department = "") {
-        console.log('create manager');
+
         super(firstName, lastName, salary, department);
 
         this._developers = [];
