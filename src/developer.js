@@ -1,5 +1,4 @@
 import './user.css';
-import './user.js';
 
 import Employee from './employee';
 import Manager from './manager';
