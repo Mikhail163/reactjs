@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 
-import Menu from './modules/Menu.jsx';
+import Menu from './Menu.jsx';
 
 class App extends Component {
     render() {
