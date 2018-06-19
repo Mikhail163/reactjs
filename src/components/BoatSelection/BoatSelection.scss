@@ -22,18 +22,18 @@
     }
 
     &_yes_no {
-        border-top: 1px dotted black;
+        //border-top: 1px dotted black;
         display: flex;
         margin-left: 10px;
     }
 
     &_yes {
         margin-top: 5px;
-        border-top: 1px dotted green;
+        border: 1px dotted green;
     }
 
     &_no {
         margin-top: 5px;
-        border-top: 1px dotted red;
+        border: 1px dotted red;
     }
 }
