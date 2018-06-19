@@ -1,11 +1,9 @@
 .bs {
-    //width:100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
 
     &_item {
-        //width: 100%;
         box-sizing: border-box;
         padding:5px;
         &:first-letter {
@@ -22,7 +20,6 @@
     }
 
     &_yes_no {
-        //border-top: 1px dotted black;
         display: flex;
         margin-left: 10px;
     }

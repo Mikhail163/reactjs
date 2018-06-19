@@ -3,7 +3,6 @@ import './BoatSelection.scss';
 import React, { Component } from 'react';
 
 class Question {
-
     /**
      * question - сам вопрос
      * yes - массив вопросов, если ответ положительный
@@ -175,10 +174,6 @@ export default class BoatSelection extends Component {
     renderQuestion(question, index, level=0) {
 
         const key_ = (level===0)?index:`${level}_${index}`;
-
-        let yesNoContent = '';
-
-        
 
         return <div className="bs_item" key={key_}>
             <span className="bs_text">{question.text}?</span>
