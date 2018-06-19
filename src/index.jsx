@@ -5,26 +5,26 @@ import ReactDom from 'react-dom';
 
 import Menu from 'components/Menu';
 import Header from 'components/Header';
+import Content from 'components/Content';
+import Footer from 'components/Footer';
 
-/*
+
 const menuItems = [
-    {
-        link: 'http://www.yandex.ru',
-        title: 'Yandex'
-    },
-    {
-        link: 'http://www.google.ru',
-        title: 'Google'
-    }
+    { link: '#catalog', title: 'Каталог' },
+    { link: '#contacts', title: 'Контакты' },
+    { link: '#pay', title: 'Оплата доставка' },
+    { link: '#reviews', title: 'Отзывы' }
 ]
-*/
+
 
 class App extends Component {
     render() {
         return (
             <Fragment>
                 <Header />
-                <Menu />
+                <Menu items={menuItems}/>
+                <Content />
+                <Footer />
             </Fragment>
         );
     }

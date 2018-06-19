@@ -2,10 +2,13 @@ import './Menu.scss';
 
 import React, { Component } from 'react';
 
-export default class Menu extends Component {
-    
+export default class Menu extends Component {  
     render () {
-       return ( <div className="menu">Menu</div> );
-    }
-    
+        const { items } = this.props;
+        return ( 
+           <div className="container menu">
+             {items.map((item, index) => <a key={index} href={item.link} className="menu_item">{item.title}</a>)}
+           </div> 
+        );
+    }    
 }
