@@ -125,6 +125,13 @@ class Question {
         return result;
     }
 
+    /**
+     * Имеются ли дополнительные вопросы?
+     */
+    haveYesOreNo() {
+        return (this._yes.length + this._no.length) > 0?true:false;
+    }
+
 }
 
 export default class BoatSelection extends Component {
@@ -161,8 +168,32 @@ export default class BoatSelection extends Component {
             </div>
         );
     }
+    
+    /**
+     * Отображаем вопрос
+     */
+    renderQuestion(question, index, level=0) {
 
-    renderQuestion(question, index) {
-        return <div className="bs_item" key={index}>{question.text}?</div>
+        const key_ = (level===0)?index:`${level}_${index}`;
+
+        let yesNoContent = '';
+
+        
+
+        return <div className="bs_item" key={key_}>
+            <span className="bs_text">{question.text}?</span>
+            {question.haveYesOreNo()?this.processYesNo(question, key_):''}
+        </div>
+
+    }
+
+    processYesNo(question, index) {
+        if (question.haveYesOreNo()) {
+            return <div className="bs_yes_no">
+                   <div className="bs_yes">{question._yes.map((item, index) => this.renderQuestion(item, index))}</div>
+                   <div className="bs_no">{question._no.map((item, index) => this.renderQuestion(item, index))}</div>
+                   </div>
+        }
+        else return '';
     }
 }
