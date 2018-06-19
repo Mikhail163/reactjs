@@ -1,0 +1,12 @@
+.bs {
+    width:100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    &_item {
+        width: 100%;
+        box-sizing: border-box;
+        padding:5px;
+    }
+}

@@ -3,6 +3,7 @@ import './Content.scss';
 import React, { Component } from 'react';
 
 import Counter from 'components/Counter';
+import BoatSelection from 'components/BoatSelection';
 
 export default class Content extends Component {
     handleCounterChange = (counter) => {
@@ -11,7 +12,8 @@ export default class Content extends Component {
     render() {      
         return (
             <div className="container content">
-            <p>Здесь размещен очень интересный контент, примерное время прочтения 7 минут + пролистается 4 страницы.</p>
+            
+            <BoatSelection />
             
             <Counter onChange={this.handleCounterChange}/>
 

@@ -1,3 +1,5 @@
+@import "components/assets/var.scss";
+
 body, html {
     margin: 0;
     padding: 0;
@@ -22,9 +24,9 @@ body, html {
 }
 
 .container {
-    background-color: #eee;
-    color: black;
-    margin:10px;
+    background-color: $main_color_light;
+    color: $main_color_dark;
+    margin:$element_margin;
     width:100%;
     display: flex;
     justify-content: center;
