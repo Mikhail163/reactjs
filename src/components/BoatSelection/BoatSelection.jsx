@@ -177,7 +177,7 @@ export default class BoatSelection extends Component {
 
         return <div className="bs_item" key={key_}>
             <span className="bs_text">{question.text}?</span>
-            {question.haveYesOreNo()?this.processYesNo(question, key_):''}
+            { question.haveYesOreNo() ? this.processYesNo(question, key_) : '' }
         </div>
 
     }
