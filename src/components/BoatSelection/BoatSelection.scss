@@ -1,0 +1,36 @@
+.bs {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    &_item {
+        box-sizing: border-box;
+        padding:5px;
+        &:first-letter {
+		    text-transform: uppercase;
+	    } 
+    }
+
+    &_text {
+        box-sizing: border-box;
+
+        &:first-letter {
+		    text-transform: uppercase;
+	    } 
+    }
+
+    &_yes_no {
+        display: flex;
+        margin-left: 10px;
+    }
+
+    &_yes {
+        margin-top: 5px;
+        border: 1px dotted green;
+    }
+
+    &_no {
+        margin-top: 5px;
+        border: 1px dotted red;
+    }
+}

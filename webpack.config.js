@@ -5,27 +5,33 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 
     entry: {
-        main: path.resolve(__dirname, 'src/index.js')
+        main: path.resolve(__dirname, 'src/index.jsx')
     },
 
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.[chunkhash].js'
     },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        alias: {
+            components: path.resolve(__dirname, 'src/components')
+        }
+    },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader'
                 }
             },
             {
-                test: /\.css$/,
+                test: /\.s?css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader']
+                    use: ['css-loader', 'postcss-loader', 'sass-loader']
                 })
             }
         ]
