@@ -7,6 +7,7 @@ import Menu from 'components/Menu';
 import Header from 'components/Header';
 import Content from 'components/Content';
 import Footer from 'components/Footer';
+import UserListContainer from 'containers/UserListContainer';
 
 
 const menuItems = [
@@ -19,12 +20,20 @@ const menuItems = [
 
 class App extends Component {
     render() {
+        /*
         return (
             <Fragment>
                 <Header />
                 <Menu items={menuItems}/>
+                <UserListContainer />
                 <Content />
                 <Footer />
+            </Fragment>
+        );
+        */
+        return (
+            <Fragment>
+                <UserListContainer />
             </Fragment>
         );
     }
