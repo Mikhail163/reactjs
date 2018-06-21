@@ -159,7 +159,7 @@ export default class Question extends Component {
     processYesNo(key, level) {
         if (this.haveYesOreNo()) {
             return <div className="bs_yes_no">
-                   <div className="bs_yes">
+                   {this.yes.length!==0?<div className="bs_yes">
                    {
                        this.yes.map((item, index) => 
                         <Question key={`${key}_${index}_yes`}  
@@ -167,8 +167,8 @@ export default class Question extends Component {
                             text={item.text} level={level} 
                             index={index}/>)
                    }
-                   </div>
-                   <div className="bs_no">
+                   </div>:''}
+                   {this.no.length!==0?<div className="bs_no">
                    {
                        this.no.map((item, index) => 
                         <Question key={`${key}_${index}_no`}  
@@ -176,7 +176,7 @@ export default class Question extends Component {
                             text={item.text} level={level} 
                             index={index}/>)
                     }
-                    </div>
+                    </div>:''}
                    </div>
         }
         else { return ''; }
