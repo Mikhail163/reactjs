@@ -1,4 +1,5 @@
 import './Question.scss';
+import 'assets/main.js';
 
 import React, { Component } from 'react';
 
@@ -15,15 +16,17 @@ export default class Question extends Component {
      * this._oldresponse - сохраняем на всякий случай старые ответы 
      *                     пользователя
      */
-    constructor() {
+    constructor(props) {
 
         super(props);
 
-        this._question = this.props.text;
+        this._question = props.text;
 
-        this._yes = this.getQuestionsArray(this.props.yes);
-        this._no = this.getQuestionsArray(this.props.no);
-        this._level = this.props.level;
+        this._yes = this.getQuestionsArray(props.yes);
+        this._no = this.getQuestionsArray(props.no);
+
+        this._level = props.level;
+        this._index = props.index;
 
         this._response = '';
         this._result = 0;
@@ -33,6 +36,14 @@ export default class Question extends Component {
 
     get text() {
         return this._question;
+    }
+
+    get level() {
+        return this._level;
+    }
+
+    get index() {
+        return this._index;
     }
 
     /**
@@ -113,15 +124,11 @@ export default class Question extends Component {
 
         if (questions instanceof Array) {
             for (let i = 0; i < questions.length; i++) {
-                if (questions[i] instanceof String) {
                    result.push(questions[i]); 
-                }
             }
         }
         else {
-            if (questions instanceof String) {
                 result.push(questions);
-            }
         }
 
         return result;
@@ -131,40 +138,47 @@ export default class Question extends Component {
      * Имеются ли дополнительные вопросы?
      */
     haveYesOreNo() {
-        return (this._yes.length + this._no.length) > 0?true:false;
+        if (typeof this.text === 'undefined')
+            return false;
+        //console.log(`${this.yes.length} __ ${this.no.length} __ ${this.text}`);
+        return (this.yes.length + this.no.length) > 0?true:false;
     }
 
 
-    render() {      
-        return (
-            <div className="bs">
-                <h1>Интеллектуальной подбор лодки с мотором</h1>
-                {this.questions.map((item, index) => this.renderQuestion(item, index))}
-            </div>
-        );
-    }
-    
-    /**
-     * Отображаем вопрос
-     */
-    renderQuestion(question, index, level=0) {
+    render() {
 
-        const key_ = (level===0)?index:`${level}_${index}`;
+        const key_ = (this.level===0)?this.index:`${this.level}_${this.index}`;
 
         return <div className="bs_item" key={key_}>
-            <span className="bs_text">{question.text}?</span>
-            { question.haveYesOreNo() ? this.processYesNo(question, key_) : '' }
+            <span className="bs_text">{this.text}?</span>
+            {this.processYesNo(key_, this.level+1)}
         </div>
 
     }
 
-    processYesNo(question, index) {
-        if (question.haveYesOreNo()) {
+    processYesNo(key, level) {
+        if (this.haveYesOreNo()) {
             return <div className="bs_yes_no">
-                   <div className="bs_yes">{question._yes.map((item, index) => this.renderQuestion(item, index))}</div>
-                   <div className="bs_no">{question._no.map((item, index) => this.renderQuestion(item, index))}</div>
+                   <div className="bs_yes">
+                   {
+                       this.yes.map((item, index) => 
+                        <Question key={`${key}_${index}_yes`}  
+                            yes={item.yes} no={item.no} 
+                            text={item.text} level={level} 
+                            index={index}/>)
+                   }
+                   </div>
+                   <div className="bs_no">
+                   {
+                       this.no.map((item, index) => 
+                        <Question key={`${key}_${index}_no`}  
+                            yes={item.yes} no={item.no} 
+                            text={item.text} level={level} 
+                            index={index}/>)
+                    }
+                    </div>
                    </div>
         }
-        else return '';
+        else { return ''; }
     }  
 }

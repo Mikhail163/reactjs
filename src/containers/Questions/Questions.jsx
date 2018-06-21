@@ -1,4 +1,5 @@
 import './Questions.scss';
+import 'assets/main.js';
 
 import React, { Fragment, PureComponent } from 'react';
 
@@ -12,7 +13,7 @@ export default class Questions extends PureComponent {
     }
 
     initQuestions() {
-        this.questions = [
+        const questions = [
             { text: 'как будете использовать' },
             { text: 'сколько человек будет в лодке'},
             { text: 'Есть ли уже мотор', 
@@ -30,53 +31,47 @@ export default class Questions extends PureComponent {
             { text: 'Киль на лодке нужен' }
         ];
 
-        this.prepareQuestion();
+        this.questions = this.prepareQuestionsArray(questions);
     }
 
-    prepareQuestion() {
-        for (let i = 0; i < this.questions.lenght; i++) {
-            if (!this.questions[i].hasOwnProperty('yes')) {
-                this.questions[i].yes = [];
+    /**
+     * Формируем массив
+     */
+    prepareQuestionsArray(questions) {
+        for (let i = 0; i < questions.length; i++) {
+            if (!questions[i].hasOwnProperty('yes')) {
+                questions[i].yes = [];
             }
-            if (!this.questions[i].hasOwnProperty('no')) {
-                this.questions[i].no = [];
+            else {
+                if (questions[i].yes instanceof Array)
+                    questions[i].yes = this.prepareQuestionsArray(questions[i].yes);
+                else {
+                    questions[i].yes = {text:questions[i].yes, yes:[], no: []};
+                }
+            }
+
+            if (!questions[i].hasOwnProperty('no')) {
+                questions[i].no = [];
+            }
+            else {
+                if (questions[i].no instanceof Array)
+                    questions[i].no = this.prepareQuestionsArray(questions[i].no);
+                else {
+                    questions[i].no = {text:questions[i].no, yes:[], no: []};
+                }
             }
         }
+        return questions;
     }
 
     render() {  
- 
         return (
             <div className="bs">
                 <h1>Интеллектуальной подбор лодки с мотором</h1>
                 {this.questions.map((item, index) => 
-                    <Question key={index}  yes={item.yes} no={item.no} text={item.text}/>                          
+                    <Question key={index}  yes={item.yes} no={item.no} text={item.text} level={0} index={index}/>                          
                 )}
             </div>
         );
-    }
-    
-    /**
-     * Отображаем вопрос
-     */
-    renderQuestion(question, index, level=0) {
-
-        const key_ = (level===0)?index:`${level}_${index}`;
-
-        return <div className="bs_item" key={key_}>
-            <span className="bs_text">{question.text}?</span>
-            { question.haveYesOreNo() ? this.processYesNo(question, key_) : '' }
-        </div>
-
-    }
-
-    processYesNo(question, index) {
-        if (question.haveYesOreNo()) {
-            return <div className="bs_yes_no">
-                   <div className="bs_yes">{question._yes.map((item, index) => this.renderQuestion(item, index))}</div>
-                   <div className="bs_no">{question._no.map((item, index) => this.renderQuestion(item, index))}</div>
-                   </div>
-        }
-        else return '';
     }
 }
