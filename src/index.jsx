@@ -24,8 +24,8 @@ class App extends Component {
         return (
             <Fragment>
                 <Header />
-                <Menu items={routes}/>
                 <BrowserRouter>
+                <Menu items={routes}/>
                 <Switch>
                     {routes.map((route, idx) => <Route key="{idx}" {...route} />)}
                 </Switch>
