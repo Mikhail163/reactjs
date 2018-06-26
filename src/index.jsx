@@ -2,14 +2,13 @@ import './index.scss';
 
 import React, { Component, Fragment } from 'react';
 import ReactDom from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import routes from './routes';
 
 import Menu from 'components/Menu';
 import Header from 'components/Header';
-import Content from 'components/Content';
 import Footer from 'components/Footer';
-import UserListContainer from 'containers/UserListContainer';
-import Questions from 'containers/Questions';
-
 
 const menuItems = [
     { link: '#catalog', title: 'Каталог' },
@@ -25,10 +24,12 @@ class App extends Component {
         return (
             <Fragment>
                 <Header />
-                <Questions />
-                <Menu items={menuItems}/>
-                <UserListContainer />
-                <Content />
+                <Menu items={routes}/>
+                <BrowserRouter>
+                <Switch>
+                    {routes.map((route, idx) => <Route key="{idx}" {...route} />)}
+                </Switch>
+                </BrowserRouter>
                 <Footer />
             </Fragment>
         );
