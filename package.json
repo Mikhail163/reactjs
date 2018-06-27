@@ -20,7 +20,9 @@
     },
     "homepage": "https://github.com/Mikhail163/reactjs#readme",
     "dependencies": {
-        "react": "^16.4.0"
+        "npm": "^6.1.0",
+        "react": "^16.4.0",
+        "react-router-dom": "^4.3.1"
     },
     "devDependencies": {
         "autoprefixer": "^8.6.3",
