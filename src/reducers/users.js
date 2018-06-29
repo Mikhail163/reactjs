@@ -1,21 +1,36 @@
 import { handleActions } from 'redux-actions';
 
-import { loadUsers } from 'actions/users';
+import { loadStarted, loadCompleted, loadFailed } from 'actions/users';
 
 const initialState = {
     loading: false,
-    entries: []
+    error: null,
+    entries: [],
+    page: 1
 };
 
 export default handleActions({
-    [loadUsers]: (state, action) => {
+    [loadStarted]: (state) => {
 
         return {
             ...state,
-            entries: [
-                { id: 1, name: 'Vasya' },
-                { id: 2, name: 'Petya' }
-            ]
+            error: null,
+            loading: true,
         };
+    },
+    [loadCompleted]: (state, action) => {
+        return {
+            ...state,
+            page: state.page + 1,
+            entries: state.entries.concat(action.payload),
+            loading: false,
+        };
+    },
+    [loadFailed]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            error: action.payload,
+        }
     }
 }, initialState )

@@ -1,6 +1,6 @@
 import './Content.scss';
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Counter from 'components/Counter';
 import BoatSelection from 'components/BoatSelection';
@@ -11,13 +11,13 @@ export default class Content extends Component {
     }
     render() {      
         return (
-            <div className="container content">
-            
-            <BoatSelection />
-            
+            <Fragment>
+            <h1>Главная старница самого интерактивного сайта</h1>
+            <p>Это учебное приложение, которое вскоре превратится в реально существующий проект: интеллектуальный поиск лодок и моторов</p>
+
             <Counter onChange={this.handleCounterChange}/>
 
-            </div>
+           </Fragment>
         );
     }
 }

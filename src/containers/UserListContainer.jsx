@@ -11,6 +11,14 @@ class UserListContainer extends PureComponent {
      * в этом методе нужно отправлять запросы на сервер
      */
     componentDidMount() {
+        const { load, users } = this.props;
+    
+        if(!users.length) {
+            load();
+        }
+    }
+
+    handleLoadMore = () => {
         const { load } = this.props;
 
         load();
@@ -18,12 +26,9 @@ class UserListContainer extends PureComponent {
 
     render() {
         const {  users, loading } = this.props;
-
-        console.log(users);
-
         return (
             <Fragment>
-            {loading ? <div>Loading...</div> : <UserList onLoadMore={this.handleLoadMore} users={users} />}
+            {loading  && !users.lenght ? <div>Loading...</div> : <UserList onLoadMore={this.handleLoadMore} users={users} />}
             </Fragment>
         );      
     }
@@ -32,6 +37,7 @@ class UserListContainer extends PureComponent {
 function mapStateToProps(state, props) {
     return {
         ...props,
+        page: state.users.page,
         loading: state.users.loading,
         users: state.users.entries,
     }
@@ -40,8 +46,16 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, props) {
     return {
         ...props,
-        load: () => dispatch(loadUsers()),
+        load: loadUsers.bind(null, dispatch),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserListContainer);
+function mergeMap(stateProps, dispatchProps, ownProps) {
+    return {
+        ...stateProps,
+        ...ownProps,
+        load: () => dispatchProps.load(stateProps.page),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeMap)(UserListContainer);

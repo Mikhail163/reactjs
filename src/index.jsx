@@ -29,9 +29,11 @@ class App extends Component {
                     <BrowserRouter>
                     <Fragment>
                     <Menu items={routes}/>
+                    <div className="container content">
                     <Switch>
                         {routes.map((route, idx) => <Route key="{idx}" {...route} />)}
                     </Switch>
+                    </div>
                     </Fragment>
                     </BrowserRouter>
                     <Footer />
