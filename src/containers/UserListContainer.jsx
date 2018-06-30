@@ -1,55 +1,61 @@
 import React, { Fragment, PureComponent } from 'react';
+import { connect } from 'react-redux';
 
-import UserList from 'components/UserList'
+import { loadUsers } from 'actions/users';
+import UserList from 'components/UserList';
 
-export default class UserListContainer extends PureComponent {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false,
-            page: 1,
-            users: []
-        };
-    }
-
-    load() {
-        const { page, users } = this.state;
-        if(page === 1) {
-            this.setState({ loading: true });
-        }
-        fetch(`https://jsonplaceholder.typicode.com/posts?limit=10&_page=${page}`)
-        .then((response) => response.json())
-        .then((results) => {
-            this.setState({
-            loading: false,
-            page: page + 1,
-            users: users.concat(results)
-            })
-        })
-        .catch(() => {
-            this.setState({ loading: false });
-        });
-    }
+class UserListContainer extends PureComponent {
 
     /**
      * Компонент был смонтирован (один раз уже отрисовался)
      * в этом методе нужно отправлять запросы на сервер
      */
     componentDidMount() {
-        this.load();
+        const { load, users } = this.props;
+    
+        if(!users.length) {
+            load();
+        }
     }
 
     handleLoadMore = () => {
-        this.load();
+        const { load } = this.props;
+
+        load();
     }
 
     render() {
-        const {  users, loading } = this.state;
+        const {  users, loading } = this.props;
         return (
             <Fragment>
-            {loading ? <div>Loading...</div> : <UserList onLoadMore={this.handleLoadMore} users={users} />}
+            {loading  && !users.lenght ? <div>Loading...</div> : <UserList onLoadMore={this.handleLoadMore} users={users} />}
             </Fragment>
         );      
     }
 }
+
+function mapStateToProps(state, props) {
+    return {
+        ...props,
+        page: state.users.page,
+        loading: state.users.loading,
+        users: state.users.entries,
+    }
+}
+
+function mapDispatchToProps(dispatch, props) {
+    return {
+        ...props,
+        load: loadUsers.bind(null, dispatch),
+    }
+}
+
+function mergeMap(stateProps, dispatchProps, ownProps) {
+    return {
+        ...stateProps,
+        ...ownProps,
+        load: () => dispatchProps.load(stateProps.page),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeMap)(UserListContainer);

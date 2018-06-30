@@ -1,6 +1,7 @@
 import Content from 'components/Content';
 import Questions from 'containers/Questions';
 import UserListContainer from 'containers/UserListContainer';
+import User from 'containers/UserContainer';
 
 export default [
     {
@@ -14,6 +15,11 @@ export default [
         exact: true,
         component: UserListContainer,
         title: 'Пользователи',
+    },
+    {
+        path: '/users/:id',
+        exact: true,
+        component: User,
     },
     {
         path: '/questions',

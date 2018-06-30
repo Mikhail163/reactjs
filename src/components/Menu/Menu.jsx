@@ -9,7 +9,7 @@ export default class Menu extends Component {
         return ( 
            <div className="container menu">       
                {items.map((item, idx) => 
-                  <Link key={idx} to={item.path} className="menu_item">{item.title}</Link>
+                  typeof item.title !== 'undefined'?<Link key={idx} to={item.path} className="menu_item">{item.title}</Link>:''
                )}
            </div> 
         );
